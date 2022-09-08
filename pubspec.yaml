@@ -52,6 +52,8 @@ dependencies:
   d_chart:
   line_icons: ^2.0.1
   settings_ui: ^2.0.2
+  flutter_color_picker_wheel: ^0.0.1
+  spinner_date_time_picker: ^0.0.8
 dev_dependencies:
   flutter_test:
     sdk: flutter

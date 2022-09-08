@@ -1,4 +1,6 @@
+import 'package:app/Views/Note/Take%20Note/takeNote_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'mainPage_widgets.dart';
 
@@ -20,7 +22,9 @@ class NoteMainPage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.to(() => TakeNotePage());
+        },
         child: const Icon(Icons.add),
       ),
       body: Column(
