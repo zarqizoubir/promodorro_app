@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/simple/list_notifier.dart';
+import 'package:get/get.dart';
 
 import 'home_widgets.dart';
+import '../Timer/timer_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -25,7 +26,9 @@ class HomePage extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          PromodoroManager(),
+          PromodoroManager(onTap: () {
+            Get.offAll(() => TimerPage());
+          }),
         ],
       ),
     );

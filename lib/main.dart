@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      home: TimerPage(),
+      home: HomePage(),
     );
   }
 }

@@ -50,7 +50,10 @@ Widget TasksManager() => Container(
       ),
     );
 
-Widget PromodoroManager() => Container(
+Widget PromodoroManager({
+  required Function()? onTap,
+}) =>
+    Container(
       margin: const EdgeInsets.all(5),
       width: double.maxFinite,
       height: 160,
@@ -59,7 +62,7 @@ Widget PromodoroManager() => Container(
         borderRadius: BorderRadius.circular(20),
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: Row(
           children: [
             const Padding(

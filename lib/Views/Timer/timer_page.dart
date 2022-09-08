@@ -21,6 +21,14 @@ class TimerPage extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.settings,
+            ),
+          )
+        ],
       ),
       body: Column(
         children: [
