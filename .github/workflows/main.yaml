@@ -25,7 +25,7 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: release-appbundle
-          path: /build/app/outputs/bundle/release/app.aab
+          path: /build/app/outputs/bundle/release/app-release.aab
       
       - run: flutter build apk --split-per-abi
       - uses: actions/upload-artifact@v1
