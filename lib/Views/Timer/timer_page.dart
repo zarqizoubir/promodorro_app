@@ -41,6 +41,7 @@ class TimerPage extends StatelessWidget {
             duration: timerController.default_work_duration,
             onFinshed: () {
               timerController.TakeRest(
+                context,
                 restTimer: RestTimer(
                   context,
                   controller: timerController.restController,
@@ -83,6 +84,7 @@ class TimerPage extends StatelessWidget {
             context,
             OnClick: () {
               timerController.TakeRest(
+                context,
                 restTimer: RestTimer(
                   context,
                   controller: timerController.restController,

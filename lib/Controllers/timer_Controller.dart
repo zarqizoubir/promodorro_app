@@ -28,7 +28,8 @@ class TimerController extends GetxController {
     countDownController.pause();
   }
 
-  TakeRest({
+  TakeRest(
+    BuildContext context, {
     required Widget restTimer,
   }) {
     countDownController.reset();
@@ -44,7 +45,9 @@ class TimerController extends GetxController {
           backgroundColor: Colors.red,
           fixedSize: const Size(300, 40),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
         child: const Text(
           "Cancel",
           style: TextStyle(
