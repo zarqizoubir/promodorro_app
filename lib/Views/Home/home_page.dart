@@ -1,3 +1,4 @@
+import 'package:app/Views/Note/note_mainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,12 +23,14 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          TasksManager(),
+          TasksManager(onTap: () {
+            Get.to(() => NoteMainPage());
+          }),
           const SizedBox(
             height: 10,
           ),
           PromodoroManager(onTap: () {
-            Get.offAll(() => TimerPage());
+            Get.to(() => TimerPage());
           }),
         ],
       ),

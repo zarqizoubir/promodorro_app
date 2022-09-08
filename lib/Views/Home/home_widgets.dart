@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-Widget TasksManager() => Container(
+Widget TasksManager({
+  required Function()? onTap,
+}) =>
+    Container(
       margin: const EdgeInsets.all(5),
       width: double.maxFinite,
       height: 160,
@@ -10,7 +13,7 @@ Widget TasksManager() => Container(
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
-        onTap: () {},
+        onTap: onTap,
         child: Row(
           children: [
             const Padding(
