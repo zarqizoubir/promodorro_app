@@ -18,13 +18,35 @@ class NoteMainPage extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
+      ),
       body: Column(
         children: [
           ExploreWidget(context),
           const SizedBox(
             height: 20,
           ),
+          Container(
+            padding: const EdgeInsets.only(left: 30),
+            width: double.maxFinite,
+            child: const Text(
+              "Quick Access : ",
+              style: TextStyle(
+                color: Colors.teal,
+                fontFamily: "astronau",
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
           mainSlider(),
+          const SizedBox(
+            height: 10,
+          ),
+          TodayTasks(),
         ],
       ),
     );

@@ -48,7 +48,11 @@ Widget mainSlider() => Container(
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
-            SliderItem(label: "Work"),
+            SliderItem(label: "Work", color: Colors.red),
+            SliderItem(label: "Study", color: Colors.deepPurple),
+            SliderItem(label: "Dialy", color: Colors.deepOrange),
+            SliderItem(label: "Week", color: Colors.blue),
+            SliderItem(label: "Quick", color: Colors.brown[200]!),
           ],
         ),
       ),
@@ -56,19 +60,20 @@ Widget mainSlider() => Container(
 
 Widget SliderItem({
   required String label,
+  required Color color,
 }) =>
     Container(
       margin: const EdgeInsets.only(right: 20, left: 30),
       height: 100,
       width: 220,
       decoration: BoxDecoration(
-        color: Colors.blue,
+        color: color,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
             color: Colors.grey,
-            offset: Offset(3, 10),
-            blurRadius: 5,
+            offset: Offset(3, 7),
+            blurRadius: 7,
             blurStyle: BlurStyle.normal,
           ),
         ],
@@ -105,4 +110,49 @@ Widget SliderItem({
           ),
         ],
       ),
+    );
+
+Widget TodayTasks() => Container(
+      width: double.maxFinite,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            today(),
+            tasks(),
+          ],
+        ),
+      ),
+    );
+
+Widget today() {
+  DateTime date = DateTime.now();
+  return Container(
+    padding: EdgeInsets.only(top: 10),
+    child: Text(
+      "Today is : ${date.day.toString().padLeft(2, '0')} / ${date.month.toString().padLeft(2, '0')} / ${date.year}",
+      style: TextStyle(
+        fontFamily: "albas",
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  );
+}
+
+Widget tasks() => ListView.builder(
+      shrinkWrap: true,
+      itemCount: 4,
+      itemBuilder: (BuildContext context, int index) {
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Container(
+            padding: const EdgeInsets.all(3),
+            child: ListTile(
+              title: Text("Task ${index + 1}"),
+              onTap: () {},
+            ),
+          ),
+        );
+      },
     );
