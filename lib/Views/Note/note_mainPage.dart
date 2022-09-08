@@ -13,13 +13,18 @@ class NoteMainPage extends StatelessWidget {
         title: const Text(
           'Manage Tasks',
           style: TextStyle(
-            fontFamily: "bailysc",
+            fontFamily: "verdana",
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
       body: Column(
         children: [
-          ExploreWidget(),
+          ExploreWidget(context),
+          const SizedBox(
+            height: 20,
+          ),
+          mainSlider(),
         ],
       ),
     );
