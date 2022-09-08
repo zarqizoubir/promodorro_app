@@ -1,4 +1,5 @@
 import 'package:app/Controllers/timer_Controller.dart';
+import 'package:app/Views/Timer/setting_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -23,7 +24,9 @@ class TimerPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => SettingTimer());
+            },
             icon: const Icon(
               Icons.settings,
             ),
