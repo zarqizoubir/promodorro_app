@@ -1,7 +1,7 @@
-import 'package:app/Views/Note/note_mainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../Note/Main Page/note_mainPage.dart';
 import 'home_widgets.dart';
 import '../Timer/timer_page.dart';
 
