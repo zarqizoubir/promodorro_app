@@ -36,8 +36,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  isar: ^3.0.0-dev.14
-  isar_flutter_libs: ^3.0.0-dev.14
+  isar: ^2.5.0
+  isar_flutter_libs: ^2.5.0
   get: ^4.6.5
   device_preview: ^1.1.0
   http: ^0.13.5
@@ -45,15 +45,16 @@ dependencies:
   chaleno: ^0.0.6
   awesome_extensions: ^2.0.3
   path_provider: ^2.0.11
-  flutter_form_builder: ^7.6.0
   circular_countdown_timer: ^0.2.2
   flutter_clean_calendar: ^1.1.0
-  easy_sidemenu: ^0.3.1
   d_chart:
   line_icons: ^2.0.1
   settings_ui: ^2.0.2
   flutter_color_picker_wheel: ^0.0.1
   spinner_date_time_picker: ^0.0.8
+
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -65,7 +66,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   build_runner: ^2.2.0
-  isar_generator: ^3.0.0-dev.14
+  isar_generator: ^2.5.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
