@@ -7,7 +7,13 @@ import 'Views/Home/home_page.dart';
 import 'Views/Timer/timer_page.dart';
 import 'Views/Test/test_page.dart';
 
+import 'Services/Isar/mainIsar.dart';
+
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final isar = IsarMain();
+  await isar.init();
+
   runApp(
     DevicePreview(
       builder: (context) => const MyApp(),
@@ -30,7 +36,7 @@ class MyApp extends StatelessWidget {
       builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      home: HomePage(),
+      home: TestPage(),
     );
   }
 }

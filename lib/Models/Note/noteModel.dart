@@ -15,4 +15,6 @@ class Note {
   String? periority;
 
   int? tileColor;
+
+  late String type;
 }
