@@ -31,12 +31,13 @@ class MyApp extends StatelessWidget {
       textDirection: TextDirection.ltr,
       theme: ThemeData(
         useMaterial3: true,
+        scaffoldBackgroundColor: Color.fromARGB(255, 255, 251, 231),
       ),
       useInheritedMediaQuery: true,
       builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      home: TestPage(),
+      home: HomePage(),
     );
   }
 }

@@ -22,17 +22,19 @@ class TestPage extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () async {
-                  Note note = Note()
-                    ..title = "test1"
-                    ..description = "1nothing"
-                    ..periority = "high"
-                    ..plan = DateTime.now()
-                    ..tileColor = Colors.red.value
-                    ..type = "week";
+                  // Note note = Note()
+                  //   ..title = "test1"
+                  //   ..description = "1nothing"
+                  //   ..periority = "high"
+                  //   ..plan = DateTime.now()
+                  //   ..tileColor = Colors.red.value
+                  //   ..type = "week";
 
-                  await instance.addData(
-                    note: note,
-                  );
+                  // await instance.addData(
+                  //   note: note,
+                  // );
+
+                  print(Colors.white.value);
                 },
                 child: Text("Add data"),
               ),

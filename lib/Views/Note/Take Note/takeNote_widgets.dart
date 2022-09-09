@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-Widget titleForm() => Container(
+Widget titleForm({
+  required TextEditingController controller,
+}) =>
+    Container(
       padding: const EdgeInsets.only(top: 20, bottom: 10, left: 10, right: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +32,10 @@ Widget titleForm() => Container(
       ),
     );
 
-Widget descriptionForm() => Container(
+Widget descriptionForm({
+  required TextEditingController controller,
+}) =>
+    Container(
       padding: const EdgeInsets.all(10),
       child: TextFormField(
         style: const TextStyle(
