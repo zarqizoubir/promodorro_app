@@ -40,21 +40,38 @@ class _TakeNotePageState extends State<TakeNotePage> {
       ),
       body: Column(
         children: [
-          titleForm(
-            controller: takeNoteController.title_ctrl,
+          Obx(
+            () => TypeForm(
+              value: takeNoteController.type.value,
+              onChanged: takeNoteController.TypeonChanged,
+            ),
+          ),
+          Form(
+            key: takeNoteController.formkey,
+            child: titleForm(
+              controller: takeNoteController.title_ctrl,
+            ),
           ),
           descriptionForm(
             controller: takeNoteController.description_ctrl,
           ),
-          PlaningDateForm(
-            onPress: () {
-              takeNoteController.TakeThedate(context);
-            },
+          Obx(
+            () => PlaningDateForm(
+              date: takeNoteController.date.value,
+              onPress: () {
+                takeNoteController.TakeThedate(context);
+              },
+            ),
           ),
           const SizedBox(
             height: 20,
           ),
-          PeriorityForm(),
+          Obx(
+            () => PeriorityForm(
+              value: takeNoteController.periority.value,
+              onChanged: takeNoteController.PeriorityonChanged,
+            ),
+          ),
           const SizedBox(
             height: 20,
           ),

@@ -21,6 +21,14 @@ Widget titleForm({
             height: 15,
           ),
           TextFormField(
+            validator: (value) {
+              if (value == null || value == "") {
+                return "value can't be null";
+              } else {
+                return null;
+              }
+            },
+            controller: controller,
             decoration: InputDecoration(
               label: const Text("Title"),
               border: OutlineInputBorder(
@@ -38,6 +46,7 @@ Widget descriptionForm({
     Container(
       padding: const EdgeInsets.all(10),
       child: TextFormField(
+        controller: controller,
         style: const TextStyle(
           fontFamily: "verdana",
           fontSize: 16,
@@ -56,8 +65,8 @@ Widget descriptionForm({
 
 Widget PlaningDateForm({
   required Function()? onPress,
+  required DateTime date,
 }) {
-  DateTime date = DateTime.now();
   return Container(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -87,58 +96,84 @@ Widget PlaningDateForm({
   );
 }
 
-Widget PeriorityForm() {
-  String? value;
-
+Widget PeriorityForm({
+  required String value,
+  required Function(dynamic val) onChanged,
+}) {
+  List<String> values = [
+    "High",
+    "Medium",
+    "Low",
+    "none",
+  ];
+  List<Color> colors = [
+    Colors.red,
+    Colors.yellow,
+    Colors.green,
+    Colors.grey,
+  ];
   return Container(
     margin: const EdgeInsets.all(10),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Row(
-          children: [
-            Text("High"),
-            Radio(
-                value: "High",
+        for (var i = 0; i <= colors.length - 1; i++)
+          Row(
+            children: [
+              Text(
+                values[i],
+                style: TextStyle(
+                  color: colors[i],
+                  fontSize: 15,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+              Radio(
+                activeColor: colors[i],
+                value: values[i],
                 groupValue: value,
-                onChanged: (value) {
-                  value = value;
-                }),
-          ],
-        ),
-        Row(
-          children: [
-            Text("Medium"),
-            Radio(
-                value: "Medium",
+                onChanged: onChanged,
+              )
+            ],
+          ),
+      ],
+    ),
+  );
+}
+
+Widget TypeForm({
+  required String value,
+  required Function(dynamic val) onChanged,
+}) {
+  List<String> values = [
+    "Work",
+    "Study",
+    "Daily",
+    "Weekly",
+    "Quick",
+  ];
+  return Container(
+    margin: const EdgeInsets.all(10),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        for (var i = 0; i <= values.length - 1; i++)
+          Column(
+            children: [
+              Text(
+                values[i],
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+              Radio(
+                value: values[i],
                 groupValue: value,
-                onChanged: (value) {
-                  value = value;
-                }),
-          ],
-        ),
-        Row(
-          children: [
-            Text("Low"),
-            Radio(
-                value: "Low",
-                groupValue: value,
-                onChanged: (value) {
-                  value = value;
-                }),
-          ],
-        ),
-        Row(
-          children: [
-            Text("none"),
-            Radio(
-                value: "none",
-                groupValue: value,
-                onChanged: (value) {
-                  value = value;
-                }),
-          ],
-        ),
+                onChanged: onChanged,
+              )
+            ],
+          ),
       ],
     ),
   );

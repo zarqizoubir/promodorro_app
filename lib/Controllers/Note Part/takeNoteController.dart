@@ -3,14 +3,35 @@ import 'package:flutter/material.dart';
 import "package:get/get.dart";
 import 'package:spinner_date_time_picker/spinner_date_time_picker.dart';
 
+import '../../Services/Isar/mainIsar.dart';
+import '../../Models/Note/noteModel.dart';
+
 class TakeNoteController extends GetxController {
+  GlobalKey<FormState> formkey = GlobalKey<FormState>();
   late TextEditingController title_ctrl;
   late TextEditingController description_ctrl;
 
   RxInt colorValue = Colors.deepPurple.value.obs;
-
+  Rx<DateTime> date = DateTime.now().obs;
+  RxString periority = "none".obs;
+  RxString type = "Quick".obs;
   // Functions
 
+  Submit() async {
+    var formdata = formkey.currentState;
+    if (formdata!.validate()) {
+      Note note = Note()
+        ..tileColor = colorValue.value
+        ..plan = date.value
+        ..title = title_ctrl.text
+        ..description = description_ctrl.text
+        ..periority = periority.value
+        ..type = type.value;
+      await IsarMain().addData(note: note);
+    } else {
+      //
+    }
+  }
   // Brooh !!!!!
 
   TakeThedate(
@@ -25,10 +46,11 @@ class TakeNoteController extends GetxController {
             initialDateTime: now,
             maximumDate: now.add(const Duration(days: 100)),
             minimumDate: now.subtract(const Duration(days: 1)),
-            mode: CupertinoDatePickerMode.dateAndTime,
+            mode: CupertinoDatePickerMode.date,
             use24hFormat: true,
             didSetTime: (value) {
-              print("did set time: $value");
+              date.value = value;
+              update();
             },
           ),
         );
@@ -36,8 +58,19 @@ class TakeNoteController extends GetxController {
     );
   }
 
+  //
   PickTheColor(Color newColor) {
     colorValue.value = newColor.value;
+    update();
+  }
+
+  PeriorityonChanged(dynamic val) {
+    periority.value = val;
+    update();
+  }
+
+  TypeonChanged(dynamic val) {
+    type.value = val;
     update();
   }
   //  Life Cycle
