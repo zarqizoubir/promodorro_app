@@ -15,14 +15,15 @@ extension GetNoteCollection on Isar {
 const NoteSchema = CollectionSchema(
   name: 'Note',
   schema:
-      '{"name":"Note","idName":"id","properties":[{"name":"description","type":"String"},{"name":"periority","type":"String"},{"name":"plan","type":"Long"},{"name":"tileColor","type":"Long"},{"name":"title","type":"String"}],"indexes":[],"links":[]}',
+      '{"name":"Note","idName":"id","properties":[{"name":"description","type":"String"},{"name":"periority","type":"String"},{"name":"plan","type":"Long"},{"name":"tileColor","type":"Long"},{"name":"title","type":"String"},{"name":"type","type":"String"}],"indexes":[],"links":[]}',
   idName: 'id',
   propertyIds: {
     'description': 0,
     'periority': 1,
     'plan': 2,
     'tileColor': 3,
-    'title': 4
+    'title': 4,
+    'type': 5
   },
   listProperties: {},
   indexIds: {},
@@ -80,6 +81,9 @@ void _noteSerializeNative(IsarCollection<Note> collection, IsarRawObject rawObj,
   final value4 = object.title;
   final _title = IsarBinaryWriter.utf8Encoder.convert(value4);
   dynamicSize += (_title.length) as int;
+  final value5 = object.type;
+  final _type = IsarBinaryWriter.utf8Encoder.convert(value5);
+  dynamicSize += (_type.length) as int;
   final size = staticSize + dynamicSize;
 
   rawObj.buffer = alloc(size);
@@ -91,6 +95,7 @@ void _noteSerializeNative(IsarCollection<Note> collection, IsarRawObject rawObj,
   writer.writeDateTime(offsets[2], _plan);
   writer.writeLong(offsets[3], _tileColor);
   writer.writeBytes(offsets[4], _title);
+  writer.writeBytes(offsets[5], _type);
 }
 
 Note _noteDeserializeNative(IsarCollection<Note> collection, int id,
@@ -102,6 +107,7 @@ Note _noteDeserializeNative(IsarCollection<Note> collection, int id,
   object.plan = reader.readDateTime(offsets[2]);
   object.tileColor = reader.readLongOrNull(offsets[3]);
   object.title = reader.readString(offsets[4]);
+  object.type = reader.readString(offsets[5]);
   return object;
 }
 
@@ -120,6 +126,8 @@ P _noteDeserializePropNative<P>(
       return (reader.readLongOrNull(offset)) as P;
     case 4:
       return (reader.readString(offset)) as P;
+    case 5:
+      return (reader.readString(offset)) as P;
     default:
       throw 'Illegal propertyIndex';
   }
@@ -134,6 +142,7 @@ dynamic _noteSerializeWeb(IsarCollection<Note> collection, Note object) {
       jsObj, 'plan', object.plan.toUtc().millisecondsSinceEpoch);
   IsarNative.jsObjectSet(jsObj, 'tileColor', object.tileColor);
   IsarNative.jsObjectSet(jsObj, 'title', object.title);
+  IsarNative.jsObjectSet(jsObj, 'type', object.type);
   return jsObj;
 }
 
@@ -150,6 +159,7 @@ Note _noteDeserializeWeb(IsarCollection<Note> collection, dynamic jsObj) {
       : DateTime.fromMillisecondsSinceEpoch(0);
   object.tileColor = IsarNative.jsObjectGet(jsObj, 'tileColor');
   object.title = IsarNative.jsObjectGet(jsObj, 'title') ?? '';
+  object.type = IsarNative.jsObjectGet(jsObj, 'type') ?? '';
   return object;
 }
 
@@ -173,6 +183,8 @@ P _noteDeserializePropWeb<P>(Object jsObj, String propertyName) {
       return (IsarNative.jsObjectGet(jsObj, 'tileColor')) as P;
     case 'title':
       return (IsarNative.jsObjectGet(jsObj, 'title') ?? '') as P;
+    case 'type':
+      return (IsarNative.jsObjectGet(jsObj, 'type') ?? '') as P;
     default:
       throw 'Illegal propertyName';
   }
@@ -713,6 +725,107 @@ extension NoteQueryFilter on QueryBuilder<Note, Note, QFilterCondition> {
       caseSensitive: caseSensitive,
     ));
   }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> typeEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return addFilterConditionInternal(FilterCondition(
+      type: ConditionType.eq,
+      property: 'type',
+      value: value,
+      caseSensitive: caseSensitive,
+    ));
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> typeGreaterThan(
+    String value, {
+    bool caseSensitive = true,
+    bool include = false,
+  }) {
+    return addFilterConditionInternal(FilterCondition(
+      type: ConditionType.gt,
+      include: include,
+      property: 'type',
+      value: value,
+      caseSensitive: caseSensitive,
+    ));
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> typeLessThan(
+    String value, {
+    bool caseSensitive = true,
+    bool include = false,
+  }) {
+    return addFilterConditionInternal(FilterCondition(
+      type: ConditionType.lt,
+      include: include,
+      property: 'type',
+      value: value,
+      caseSensitive: caseSensitive,
+    ));
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> typeBetween(
+    String lower,
+    String upper, {
+    bool caseSensitive = true,
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return addFilterConditionInternal(FilterCondition.between(
+      property: 'type',
+      lower: lower,
+      includeLower: includeLower,
+      upper: upper,
+      includeUpper: includeUpper,
+      caseSensitive: caseSensitive,
+    ));
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> typeStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return addFilterConditionInternal(FilterCondition(
+      type: ConditionType.startsWith,
+      property: 'type',
+      value: value,
+      caseSensitive: caseSensitive,
+    ));
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> typeEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return addFilterConditionInternal(FilterCondition(
+      type: ConditionType.endsWith,
+      property: 'type',
+      value: value,
+      caseSensitive: caseSensitive,
+    ));
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> typeContains(String value,
+      {bool caseSensitive = true}) {
+    return addFilterConditionInternal(FilterCondition(
+      type: ConditionType.contains,
+      property: 'type',
+      value: value,
+      caseSensitive: caseSensitive,
+    ));
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> typeMatches(String pattern,
+      {bool caseSensitive = true}) {
+    return addFilterConditionInternal(FilterCondition(
+      type: ConditionType.matches,
+      property: 'type',
+      value: pattern,
+      caseSensitive: caseSensitive,
+    ));
+  }
 }
 
 extension NoteQueryLinks on QueryBuilder<Note, Note, QFilterCondition> {}
@@ -765,6 +878,14 @@ extension NoteQueryWhereSortBy on QueryBuilder<Note, Note, QSortBy> {
   QueryBuilder<Note, Note, QAfterSortBy> sortByTitleDesc() {
     return addSortByInternal('title', Sort.desc);
   }
+
+  QueryBuilder<Note, Note, QAfterSortBy> sortByType() {
+    return addSortByInternal('type', Sort.asc);
+  }
+
+  QueryBuilder<Note, Note, QAfterSortBy> sortByTypeDesc() {
+    return addSortByInternal('type', Sort.desc);
+  }
 }
 
 extension NoteQueryWhereSortThenBy on QueryBuilder<Note, Note, QSortThenBy> {
@@ -815,6 +936,14 @@ extension NoteQueryWhereSortThenBy on QueryBuilder<Note, Note, QSortThenBy> {
   QueryBuilder<Note, Note, QAfterSortBy> thenByTitleDesc() {
     return addSortByInternal('title', Sort.desc);
   }
+
+  QueryBuilder<Note, Note, QAfterSortBy> thenByType() {
+    return addSortByInternal('type', Sort.asc);
+  }
+
+  QueryBuilder<Note, Note, QAfterSortBy> thenByTypeDesc() {
+    return addSortByInternal('type', Sort.desc);
+  }
 }
 
 extension NoteQueryWhereDistinct on QueryBuilder<Note, Note, QDistinct> {
@@ -844,6 +973,11 @@ extension NoteQueryWhereDistinct on QueryBuilder<Note, Note, QDistinct> {
       {bool caseSensitive = true}) {
     return addDistinctByInternal('title', caseSensitive: caseSensitive);
   }
+
+  QueryBuilder<Note, Note, QDistinct> distinctByType(
+      {bool caseSensitive = true}) {
+    return addDistinctByInternal('type', caseSensitive: caseSensitive);
+  }
 }
 
 extension NoteQueryProperty on QueryBuilder<Note, Note, QQueryProperty> {
@@ -869,5 +1003,9 @@ extension NoteQueryProperty on QueryBuilder<Note, Note, QQueryProperty> {
 
   QueryBuilder<Note, String, QQueryOperations> titleProperty() {
     return addPropertyNameInternal('title');
+  }
+
+  QueryBuilder<Note, String, QQueryOperations> typeProperty() {
+    return addPropertyNameInternal('type');
   }
 }
