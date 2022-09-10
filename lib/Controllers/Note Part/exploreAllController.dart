@@ -8,4 +8,5 @@ class ExploreAllController extends GetxController {
     List<Note> notes = await isarIns.querydata();
     return notes;
   }
+  // ///////////////////////////////////////////////
 }
