@@ -48,19 +48,24 @@ class _DettailsPageState extends State<DettailsPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const Text(
-              "Title : ",
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.w900,
+            Container(
+              child: const Text(
+                "Title : ",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w900,
+                ),
               ),
             ),
-            Text(
-              widget.note.title,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 25,
-                fontWeight: FontWeight.w800,
+            Container(
+              child: Text(
+                widget.note.title,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 25,
+                  fontWeight: FontWeight.w800,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
           ],

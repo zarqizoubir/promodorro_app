@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../Dettails/dettails_Page.dart';
 
@@ -48,6 +49,7 @@ class _ExplorePageState extends State<ExplorePage> {
               itemCount: data.length,
               itemBuilder: (BuildContext context, int index) {
                 return tasksListtile(
+                  context,
                   onLongPress: () {
                     Get.defaultDialog(
                       content: Column(),
@@ -60,8 +62,6 @@ class _ExplorePageState extends State<ExplorePage> {
                         MaterialButton(
                           color: Colors.red,
                           onPressed: () async {
-                            await IsarMain().deleteRecord(data[index].id);
-                            setState(() {});
                             Navigator.of(context).pop();
                           },
                           child: Text("Delete"),
@@ -93,7 +93,8 @@ class _ExplorePageState extends State<ExplorePage> {
     );
   }
 
-  Widget tasksListtile({
+  Widget tasksListtile(
+    BuildContext context, {
     required Function()? onTap,
     required Note note,
     required Function()? onLongPress,
@@ -119,24 +120,60 @@ class _ExplorePageState extends State<ExplorePage> {
     DateTime date = note.plan;
     return Container(
       margin: const EdgeInsets.all(3),
-      child: ListTile(
-        onLongPress: onLongPress,
-        leading: Text(
-          note.type,
-          style: TextStyle(
-            color: leadingcolor,
-            fontSize: 15,
-            fontWeight: FontWeight.w900,
+      child: Slidable(
+        key: const ValueKey(0),
+        startActionPane: ActionPane(
+          motion: const ScrollMotion(),
+          dismissible: DismissiblePane(
+            onDismissed: () async {
+              await IsarMain().deleteRecord(note.id);
+            },
           ),
+          children: [
+            SlidableAction(
+              onPressed: (context) async {
+                await IsarMain().deleteRecord(note.id);
+                setState(() {});
+              },
+              backgroundColor: Color(0xFFFE4A49),
+              foregroundColor: Colors.white,
+              icon: Icons.delete,
+              label: 'Delete',
+            ),
+          ],
         ),
-        trailing: Text(
-            "${date.day.toString().padLeft(2, '0')} / ${date.month.toString().padLeft(2, '0')} / ${date.year}"),
-        onTap: onTap,
-        tileColor: Colors.white,
-        title: Text(
-          note.title,
-          style: const TextStyle(
-            fontWeight: FontWeight.w700,
+        endActionPane: ActionPane(
+          motion: const ScrollMotion(),
+          children: [
+            SlidableAction(
+              flex: 2,
+              onPressed: (context) {},
+              backgroundColor: Color(0xFF7BC043),
+              foregroundColor: Colors.white,
+              icon: Icons.edit,
+              label: 'Edit',
+            ),
+          ],
+        ),
+        child: ListTile(
+          onLongPress: onLongPress,
+          leading: Text(
+            note.type,
+            style: TextStyle(
+              color: leadingcolor,
+              fontSize: 15,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          trailing: Text(
+              "${date.day.toString().padLeft(2, '0')} / ${date.month.toString().padLeft(2, '0')} / ${date.year}"),
+          onTap: onTap,
+          tileColor: Colors.white,
+          title: Text(
+            note.title,
+            style: const TextStyle(
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
       ),
