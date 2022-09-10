@@ -32,7 +32,10 @@ class _TakeNotePageState extends State<TakeNotePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton.large(
-        onPressed: () {},
+        onPressed: () async {
+          await takeNoteController.Submit();
+          Navigator.of(context).pop();
+        },
         child: const Icon(
           Icons.done,
           size: 50,
@@ -47,6 +50,7 @@ class _TakeNotePageState extends State<TakeNotePage> {
             ),
           ),
           Form(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             key: takeNoteController.formkey,
             child: titleForm(
               controller: takeNoteController.title_ctrl,

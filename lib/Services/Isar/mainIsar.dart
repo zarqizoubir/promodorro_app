@@ -25,12 +25,16 @@ class IsarMain {
     log("added with succes", name: "Main Isar");
   }
 
-  Future querydata() async {
-    MainInstance!.txn((isar) async {
+  Future<List<Note>> querydata() async {
+    return await MainInstance!.txn((isar) async {
       final data = await isar.notes.where().findAll();
-      data.forEach((element) {
-        print(element.type);
-      });
+      return data;
+    });
+  }
+
+  Future deleteRecord(int id) async {
+    await MainInstance!.writeTxn((isar) async {
+      isar.notes.delete(id);
     });
   }
 }

@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:awesome_extensions/awesome_extensions.dart';
 
 Widget ExploreWidget(
-  BuildContext context,
-) =>
+  BuildContext context, {
+  required Function()? ontap,
+}) =>
     Container(
       padding: const EdgeInsets.all(30),
       width: double.maxFinite,
@@ -18,7 +19,7 @@ Widget ExploreWidget(
             color: Color.fromARGB(255, 20, 43, 143),
           ),
           child: InkWell(
-            onTap: () {},
+            onTap: ontap,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -28,7 +29,7 @@ Widget ExploreWidget(
                   color: Colors.teal,
                 ),
                 const Text(
-                  "Explore",
+                  "Explore All",
                   style: TextStyle(
                     fontFamily: "Albas",
                     fontSize: 30,
@@ -48,11 +49,11 @@ Widget mainSlider() => Container(
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
+            SliderItem(label: "Quick", color: Colors.brown[500]!),
             SliderItem(label: "Work", color: Colors.red),
             SliderItem(label: "Study", color: Colors.deepPurple),
             SliderItem(label: "Dialy", color: Colors.deepOrange),
             SliderItem(label: "Week", color: Colors.blue),
-            SliderItem(label: "Quick", color: Colors.brown[200]!),
           ],
         ),
       ),

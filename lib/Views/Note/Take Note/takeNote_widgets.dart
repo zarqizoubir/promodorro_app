@@ -4,14 +4,13 @@ Widget titleForm({
   required TextEditingController controller,
 }) =>
     Container(
-      padding: const EdgeInsets.only(top: 20, bottom: 10, left: 10, right: 10),
+      padding: const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
             "Add a title : ",
             style: TextStyle(
-              fontFamily: "verdana",
               fontSize: 20,
               color: Colors.black,
               fontWeight: FontWeight.w900,
@@ -21,6 +20,7 @@ Widget titleForm({
             height: 15,
           ),
           TextFormField(
+            cursorColor: Colors.teal,
             validator: (value) {
               if (value == null || value == "") {
                 return "value can't be null";
@@ -30,11 +30,31 @@ Widget titleForm({
             },
             controller: controller,
             decoration: InputDecoration(
-              label: const Text("Title"),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
+                errorStyle: const TextStyle(
+                  color: Colors.red,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(width: 2, color: Colors.red),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(width: 3, color: Colors.red),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(width: 2, color: Colors.teal),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(width: 3, color: Colors.teal),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                label: const Text("Title"),
+                labelStyle: const TextStyle(
+                  color: Colors.teal,
+                )),
           ),
         ],
       ),
@@ -46,6 +66,7 @@ Widget descriptionForm({
     Container(
       padding: const EdgeInsets.all(10),
       child: TextFormField(
+        cursorColor: Colors.teal,
         controller: controller,
         style: const TextStyle(
           fontFamily: "verdana",
@@ -56,8 +77,13 @@ Widget descriptionForm({
         maxLines: 4,
         decoration: InputDecoration(
           hintText: "Add a Short description !",
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(width: 2.5, color: Colors.teal),
+            borderRadius: BorderRadius.circular(13),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(width: 4, color: Colors.teal),
+            borderRadius: BorderRadius.circular(20),
           ),
         ),
       ),
@@ -74,17 +100,17 @@ Widget PlaningDateForm({
         Text(
           "${date.day.toString().padLeft(2, '0')} / ${date.month.toString().padLeft(2, '0')} / ${date.year}",
           style: const TextStyle(
-            fontFamily: "verdana",
-            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
           ),
         ),
         ClipRRect(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(7),
           child: MaterialButton(
-            color: Colors.blue,
+            color: Colors.teal,
             onPressed: onPress,
             child: const Text(
-              'Plan',
+              'Plan this Task',
               style: TextStyle(
                 fontSize: 20,
               ),

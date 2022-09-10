@@ -11,7 +11,7 @@ class TakeNoteController extends GetxController {
   late TextEditingController title_ctrl;
   late TextEditingController description_ctrl;
 
-  RxInt colorValue = Colors.deepPurple.value.obs;
+  RxInt colorValue = Colors.white.value.obs;
   Rx<DateTime> date = DateTime.now().obs;
   RxString periority = "none".obs;
   RxString type = "Quick".obs;
@@ -44,7 +44,7 @@ class TakeNoteController extends GetxController {
         return Dialog(
           child: SpinnerDateTimePicker(
             initialDateTime: now,
-            maximumDate: now.add(const Duration(days: 100)),
+            maximumDate: now.add(const Duration(days: 10000)),
             minimumDate: now.subtract(const Duration(days: 1)),
             mode: CupertinoDatePickerMode.date,
             use24hFormat: true,
