@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
+import 'package:app/Controllers/Note%20Part/takeNoteController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_color_picker_wheel/flutter_color_picker_wheel.dart';
 import 'package:flutter_color_picker_wheel/models/animation_config.dart';
 import 'package:flutter_color_picker_wheel/models/button_behaviour.dart';
-import 'package:spinner_date_time_picker/spinner_date_time_picker.dart';
-import 'dart:developer';
+import 'package:get/get.dart';
 
 import 'takeNote_widgets.dart';
 
@@ -16,7 +15,9 @@ class TakeNotePage extends StatefulWidget {
 }
 
 class _TakeNotePageState extends State<TakeNotePage> {
-  Color color = Colors.deepPurple;
+  final TakeNoteController takeNoteController = Get.put(TakeNoteController());
+
+  // Color color = Colors.deepPurple;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,10 @@ class _TakeNotePageState extends State<TakeNotePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton.large(
-        onPressed: () {},
+        onPressed: () async {
+          await takeNoteController.Submit();
+          Navigator.of(context).pop();
+        },
         child: const Icon(
           Icons.done,
           size: 50,
@@ -39,74 +43,77 @@ class _TakeNotePageState extends State<TakeNotePage> {
       ),
       body: Column(
         children: [
-          titleForm(),
-          descriptionForm(),
-          PlaningDateForm(
-            onPress: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  var now = DateTime.now();
-                  return Dialog(
-                    child: SpinnerDateTimePicker(
-                      initialDateTime: now,
-                      maximumDate: now.add(const Duration(days: 100)),
-                      minimumDate: now.subtract(const Duration(days: 1)),
-                      mode: CupertinoDatePickerMode.dateAndTime,
-                      use24hFormat: true,
-                      didSetTime: (value) {
-                        log("did set time: $value");
-                      },
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          PeriorityForm(),
-          const SizedBox(
-            height: 20,
-          ),
-          Container(
-            child: WheelColorPicker(
-              onSelect: (Color newColor) {
-                setState(() {
-                  color = newColor;
-                });
-              },
-              behaviour: ButtonBehaviour.clickToOpen,
-              defaultColor: color,
-              animationConfig: const FanAnimationConfig(
-                  animationDurationInMillisecond: 1000,
-                  rayAnimationConfig: RayAnimationConfig(
-                    curve: Curves.easeInQuad,
-                    enabled: false,
-                  ),
-                  scaleAnimationConfig: ScaleAnimationConfig(
-                    curve: Curves.easeInOutCubic,
-                    enabled: true,
-                    animationStartDelay: 0,
-                    animationFinishDelay: 0.2,
-                  ),
-                  opacityAnimationConfig: OpacityAnimationConfig(
-                    curve: Curves.linear,
-                    enabled: true,
-                    animationStartDelay: 0.2,
-                    animationFinishDelay: 0,
-                  ),
-                  rotationAnimationConfig: RotationAnimationConfig(
-                      curve: Curves.easeInQuad,
-                      enabled: true,
-                      animationFinishDelay: 0.4)),
-              colorList: defaultAvailableColors,
-              buttonSize: 40,
-              pieceHeight: 25,
-              innerRadius: 80,
+          Obx(
+            () => TypeForm(
+              value: takeNoteController.type.value,
+              onChanged: takeNoteController.TypeonChanged,
             ),
-          )
+          ),
+          Form(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            key: takeNoteController.formkey,
+            child: titleForm(
+              controller: takeNoteController.title_ctrl,
+            ),
+          ),
+          descriptionForm(
+            controller: takeNoteController.description_ctrl,
+          ),
+          Obx(
+            () => PlaningDateForm(
+              date: takeNoteController.date.value,
+              onPress: () {
+                takeNoteController.TakeThedate(context);
+              },
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Obx(
+            () => PeriorityForm(
+              value: takeNoteController.periority.value,
+              onChanged: takeNoteController.PeriorityonChanged,
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Obx(
+            () => Container(
+              child: WheelColorPicker(
+                onSelect: takeNoteController.PickTheColor,
+                behaviour: ButtonBehaviour.clickToOpen,
+                defaultColor: Color(takeNoteController.colorValue.value),
+                animationConfig: const FanAnimationConfig(
+                    animationDurationInMillisecond: 1000,
+                    rayAnimationConfig: RayAnimationConfig(
+                      curve: Curves.easeInQuad,
+                      enabled: false,
+                    ),
+                    scaleAnimationConfig: ScaleAnimationConfig(
+                      curve: Curves.easeInOutCubic,
+                      enabled: true,
+                      animationStartDelay: 0,
+                      animationFinishDelay: 0.2,
+                    ),
+                    opacityAnimationConfig: OpacityAnimationConfig(
+                      curve: Curves.linear,
+                      enabled: true,
+                      animationStartDelay: 0.2,
+                      animationFinishDelay: 0,
+                    ),
+                    rotationAnimationConfig: RotationAnimationConfig(
+                        curve: Curves.easeInQuad,
+                        enabled: true,
+                        animationFinishDelay: 0.4)),
+                colorList: defaultAvailableColors,
+                buttonSize: 40,
+                pieceHeight: 25,
+                innerRadius: 80,
+              ),
+            ),
+          ),
         ],
       ),
     );

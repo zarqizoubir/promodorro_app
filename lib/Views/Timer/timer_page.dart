@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 
 import 'timer_widgets.dart';
 
+import '../../Global/Widgets/mainDrawer.dart';
+
 class TimerPage extends StatelessWidget {
   TimerPage({super.key});
 
@@ -13,6 +15,7 @@ class TimerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MainDrawer(),
       appBar: AppBar(
         centerTitle: true,
         title: const Text(

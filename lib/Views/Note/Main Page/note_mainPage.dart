@@ -4,12 +4,16 @@ import 'package:get/get.dart';
 
 import 'mainPage_widgets.dart';
 
+import '../../../Global/Widgets/mainDrawer.dart';
+import '../Explore/exploreTasks_page.dart';
+
 class NoteMainPage extends StatelessWidget {
   const NoteMainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MainDrawer(),
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
@@ -29,7 +33,12 @@ class NoteMainPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          ExploreWidget(context),
+          ExploreWidget(
+            context,
+            ontap: () {
+              Get.to(() => ExplorePage());
+            },
+          ),
           const SizedBox(
             height: 20,
           ),
