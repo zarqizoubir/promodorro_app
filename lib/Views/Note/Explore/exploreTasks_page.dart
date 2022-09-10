@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
+import 'editBottomSheet.dart';
+
 import '../Dettails/dettails_Page.dart';
 
 import '../../../Models/Note/noteModel.dart';
@@ -147,7 +149,11 @@ class _ExplorePageState extends State<ExplorePage> {
           children: [
             SlidableAction(
               flex: 2,
-              onPressed: (context) {},
+              onPressed: (context) async {
+                await OpenBottomSheet(
+                  note: note,
+                );
+              },
               backgroundColor: Color(0xFF7BC043),
               foregroundColor: Colors.white,
               icon: Icons.edit,
@@ -174,6 +180,59 @@ class _ExplorePageState extends State<ExplorePage> {
             style: const TextStyle(
               fontWeight: FontWeight.w700,
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  OpenBottomSheet({
+    required Note note,
+  }) {
+    TextEditingController titlecontroller =
+        TextEditingController(text: note.title);
+    TextEditingController descriptionController =
+        TextEditingController(text: note.description);
+
+    Get.bottomSheet(
+      ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Scaffold(
+          body: Column(
+            children: [
+              titleForm(controller: titlecontroller),
+              descriptionForm(controller: descriptionController),
+              Padding(
+                padding: const EdgeInsets.all(50.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.indigo,
+                    fixedSize: const Size(200, 30),
+                  ),
+                  onPressed: () async {
+                    Note editedNote = Note()
+                      ..id = note.id
+                      ..title = titlecontroller.text
+                      ..description = descriptionController.text
+                      ..periority = note.periority
+                      ..plan = note.plan
+                      ..tileColor = note.tileColor
+                      ..type = note.type;
+                    await IsarMain().addData(note: editedNote);
+                    titlecontroller.dispose();
+                    descriptionController.dispose();
+                    Navigator.of(context).pop();
+                    setState(() {});
+                  },
+                  child: const Text(
+                    'Save',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              )
+            ],
           ),
         ),
       ),
