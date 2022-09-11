@@ -52,32 +52,7 @@ class _ExplorePageState extends State<ExplorePage> {
               itemBuilder: (BuildContext context, int index) {
                 return tasksListtile(
                   context,
-                  onLongPress: () {
-                    Get.defaultDialog(
-                      content: Column(),
-                      title: "Delete confirmation",
-                      titleStyle: const TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.w800,
-                      ),
-                      actions: [
-                        MaterialButton(
-                          color: Colors.red,
-                          onPressed: () async {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text("Delete"),
-                        ),
-                        MaterialButton(
-                          color: Colors.green,
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text("Cancel"),
-                        ),
-                      ],
-                    );
-                  },
+                  onLongPress: () {},
                   note: data[index],
                   onTap: () {
                     Get.to(() => DettailsPage(note: data[index]));

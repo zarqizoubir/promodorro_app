@@ -54,7 +54,7 @@ Widget mainSlider() => Container(
             SliderItem(label: "Quick", color: Colors.brown[500]!),
             SliderItem(label: "Work", color: Colors.red),
             SliderItem(label: "Study", color: Colors.deepPurple),
-            SliderItem(label: "Dialy", color: Colors.deepOrange),
+            SliderItem(label: "Daily", color: Colors.deepOrange),
             SliderItem(label: "Week", color: Colors.blue),
           ],
         ),
