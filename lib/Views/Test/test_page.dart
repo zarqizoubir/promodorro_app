@@ -20,7 +20,7 @@ class TestPage extends StatelessWidget {
         appBar: AppBar(),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ElevatedButton(
                 onPressed: () async {
@@ -42,18 +42,21 @@ class TestPage extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  final dio = Dio();
-
-                  dio.download(
-                    "https://web.facebook.com/100051940011722/videos/800697967617920/",
-                    "/home/ezzoubair/Desktop/Next/app/download/video.mp4",
-                    onReceiveProgress: (count, total) {
-                      print(total);
-                      print(count);
-                    },
-                  );
+                  final data = await instance.getTodayTasks();
+                  data.shuffle();
+                  if (data.length >= 4) {
+                    for (var i = 0; i <= 3; i++) {
+                      print(data[i].id);
+                    }
+                  } else {
+                    for (var i = 0; i <= data.length - 1; i++) {
+                      print(data[i].id);
+                    }
+                  }
                 },
-                child: Text("Download"),
+                child: const Text(
+                  "today Tasks",
+                ),
               ),
             ],
           ),
