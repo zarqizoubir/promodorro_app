@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:device_preview/device_preview.dart';
 
 import 'Views/Home/home_page.dart';
-import 'Views/Timer/timer_page.dart';
-import 'Views/Test/test_page.dart';
 
 import 'Services/Isar/mainIsar.dart';
 
