@@ -12,7 +12,9 @@ class TakeNoteController extends GetxController {
   late TextEditingController description_ctrl;
 
   RxInt colorValue = Colors.white.value.obs;
-  Rx<DateTime> date = DateTime.now().obs;
+  Rx<DateTime> date =
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day)
+          .obs;
   RxString periority = "none".obs;
   RxString type = "Quick".obs;
   // Functions
@@ -49,6 +51,7 @@ class TakeNoteController extends GetxController {
             mode: CupertinoDatePickerMode.date,
             use24hFormat: true,
             didSetTime: (value) {
+              print(value);
               date.value = value;
               update();
             },

@@ -37,4 +37,14 @@ class IsarMain {
       isar.notes.delete(id);
     });
   }
+
+  Future<List<Note>> getTodayTasks() async {
+    DateTime now = DateTime.now();
+    DateTime today = DateTime(now.year, now.month, now.day);
+    return await MainInstance!.txn((isar) async {
+      final todayTasks =
+          await isar.notes.where().filter().planEqualTo(today).findAll();
+      return todayTasks;
+    });
+  }
 }

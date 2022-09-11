@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:awesome_extensions/awesome_extensions.dart';
+import '../../../Models/Note/noteModel.dart';
+import '../Dettails/dettails_Page.dart';
 
 Widget ExploreWidget(
   BuildContext context, {
@@ -113,14 +115,19 @@ Widget SliderItem({
       ),
     );
 
-Widget TodayTasks() => Container(
+Widget TodayTasks({
+  required List<Note> notes,
+}) =>
+    Container(
       width: double.maxFinite,
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
             today(),
-            tasks(),
+            tasks(
+              notes: notes,
+            ),
           ],
         ),
       ),
@@ -141,17 +148,55 @@ Widget today() {
   );
 }
 
-Widget tasks() => ListView.builder(
+Widget tasks({
+  required List<Note> notes,
+}) =>
+    ListView.builder(
       shrinkWrap: true,
-      itemCount: 4,
+      itemCount: notes.length,
       itemBuilder: (BuildContext context, int index) {
+        Color leadingcolor = Colors.black;
+        switch (notes[index].type) {
+          case "Work":
+            leadingcolor = Colors.red;
+            break;
+          case "Study":
+            leadingcolor = Colors.teal;
+            break;
+          case "Daily":
+            leadingcolor = Colors.blue;
+            break;
+          case "Weekly":
+            leadingcolor = Colors.green;
+            break;
+          case "Quick":
+            leadingcolor = Colors.brown;
+            break;
+        }
+        DateTime date = notes[index].plan;
         return ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: Container(
             padding: const EdgeInsets.all(3),
             child: ListTile(
-              title: Text("Task ${index + 1}"),
-              onTap: () {},
+              leading: Text(
+                notes[index].type,
+                style: TextStyle(
+                  color: leadingcolor,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              trailing: Text(
+                "${date.day.toString().padLeft(2, '0')} / ${date.month.toString().padLeft(2, '0')} / ${date.year}",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              title: Text(notes[index].title),
+              onTap: () {
+                context.push(DettailsPage(note: notes[index]));
+              },
             ),
           ),
         );

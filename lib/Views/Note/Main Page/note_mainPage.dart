@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'mainPage_widgets.dart';
 
 import '../../../Global/Widgets/mainDrawer.dart';
+import '../../../Services/Isar/mainIsar.dart';
+import '../../../Models/Note/noteModel.dart';
 import '../Explore/exploreTasks_page.dart';
 
 class NoteMainPage extends StatelessWidget {
@@ -59,7 +61,30 @@ class NoteMainPage extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          TodayTasks(),
+          FutureBuilder(
+            future: IsarMain().getTodayTasks(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                List<Note> data = snapshot.data;
+                if (data.length >= 4) {
+                  List<Note> newList = [];
+                  data.shuffle();
+                  for (var i = 0; i <= 3; i++) {
+                    newList.add(data[i]);
+                  }
+                  return TodayTasks(
+                    notes: newList,
+                  );
+                } else {
+                  return TodayTasks(notes: data);
+                }
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
         ],
       ),
     );
