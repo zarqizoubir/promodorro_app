@@ -20,17 +20,12 @@ class _DettailsPageState extends State<DettailsPage> {
           widget.note.type,
           style: const TextStyle(fontWeight: FontWeight.w700),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.edit),
-          ),
-        ],
+        actions: [],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
             titleBox(),

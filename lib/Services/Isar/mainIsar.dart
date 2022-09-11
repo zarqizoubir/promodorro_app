@@ -38,6 +38,8 @@ class IsarMain {
     });
   }
 
+  // The Filter Part
+
   Future<List<Note>> getTodayTasks() async {
     DateTime now = DateTime.now();
     DateTime today = DateTime(now.year, now.month, now.day);
@@ -45,6 +47,22 @@ class IsarMain {
       final todayTasks =
           await isar.notes.where().filter().planEqualTo(today).findAll();
       return todayTasks;
+    });
+  }
+
+  Future<List<Note>> getCategory(String category) async {
+    return await MainInstance!.txn((isar) async {
+      final categoryTasks =
+          await isar.notes.where().filter().typeEqualTo(category).findAll();
+      return categoryTasks;
+    });
+  }
+
+  // Sort The Data
+
+  Future sortbyDate({bool isAsc = true}) async {
+    return await MainInstance!.txn((isar) async {
+      if (isAsc) {}
     });
   }
 }

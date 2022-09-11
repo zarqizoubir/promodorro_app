@@ -42,20 +42,13 @@ class TestPage extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  final data = await instance.getTodayTasks();
-                  data.shuffle();
-                  if (data.length >= 4) {
-                    for (var i = 0; i <= 3; i++) {
-                      print(data[i].id);
-                    }
-                  } else {
-                    for (var i = 0; i <= data.length - 1; i++) {
-                      print(data[i].id);
-                    }
-                  }
+                  List some = await instance.sortbyDate();
+                  some.forEach((element) {
+                    print(element.plan);
+                  });
                 },
                 child: const Text(
-                  "today Tasks",
+                  "Tasks",
                 ),
               ),
             ],
