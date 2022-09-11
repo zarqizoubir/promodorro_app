@@ -1,4 +1,5 @@
 import 'package:app/Controllers/Note%20Part/takeNoteController.dart';
+import 'package:app/Views/Note/Main%20Page/note_mainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_color_picker_wheel/flutter_color_picker_wheel.dart';
 import 'package:flutter_color_picker_wheel/models/animation_config.dart';
@@ -34,7 +35,8 @@ class _TakeNotePageState extends State<TakeNotePage> {
       floatingActionButton: FloatingActionButton.large(
         onPressed: () async {
           await takeNoteController.Submit();
-          Navigator.of(context).pop();
+          // Navigator.of(context).pop();
+          Get.offAll(() => NoteMainPage());
         },
         child: const Icon(
           Icons.done,
