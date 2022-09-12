@@ -36,7 +36,7 @@ class _ExplorePageState extends State<ExplorePage> {
         actions: [
           IconButton(
               onPressed: () {
-                Get.offAll(() => CalendarPage());
+                Get.to(() => CalendarPage());
               },
               icon: const Icon(Icons.calendar_month_outlined)),
           IconButton(

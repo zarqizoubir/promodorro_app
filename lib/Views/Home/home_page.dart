@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import 'home_widgets.dart';
 import '../Note/Main Page/note_mainPage.dart';
+import '../Note/Explore/exploreTasks_page.dart';
 import '../Timer/timer_page.dart';
 import '../../Global/Widgets/mainDrawer.dart';
 
@@ -26,14 +27,22 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: [
           TasksManager(onTap: () {
-            Get.to(() => NoteMainPage());
+            Get.offAll(() => NoteMainPage());
           }),
           const SizedBox(
             height: 10,
           ),
           PromodoroManager(onTap: () {
-            Get.to(() => TimerPage());
+            Get.offAll(() => TimerPage());
           }),
+          const SizedBox(
+            height: 10,
+          ),
+          ExploreTasks(
+            onTap: () {
+              Get.to(() => ExplorePage());
+            },
+          ),
         ],
       ),
     );
