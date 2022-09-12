@@ -1,3 +1,4 @@
+import 'package:app/Views/Calendar/calendar_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -34,7 +35,9 @@ class _ExplorePageState extends State<ExplorePage> {
         ),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => CalendarPage());
+              },
               icon: const Icon(Icons.calendar_month_outlined)),
           IconButton(
             onPressed: () {},

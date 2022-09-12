@@ -104,3 +104,55 @@ Widget PromodoroManager({
         ),
       ),
     );
+
+Widget ExploreTasks({
+  required Function()? onTap,
+}) =>
+    Container(
+      margin: const EdgeInsets.all(5),
+      width: double.maxFinite,
+      height: 160,
+      decoration: BoxDecoration(
+        color: Colors.teal.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: InkWell(
+        onTap: onTap,
+        child: Row(
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(5),
+              child: Icon(
+                Icons.task,
+                size: 150,
+                color: Colors.indigo,
+              ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Text(
+                    "Tasks",
+                    style: TextStyle(
+                      fontFamily: "albas",
+                      fontSize: 50,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                Text(
+                  "Explore Your Notes",
+                  style: TextStyle(
+                    fontFamily: "verdana",
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
